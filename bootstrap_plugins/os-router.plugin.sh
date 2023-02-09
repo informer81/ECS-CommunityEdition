@@ -27,7 +27,9 @@ detect_os() {
     elif [ -f /etc/redhat-release ]; then
         os=`cat /etc/redhat-release`
     # TODO: SuSE, Arch, etc...
-
+    elif [ -f /etc/almalinux-release ]; then
+        os=`cat /etc/almalinux-release`
+    
     # fallback for unknowns, perhaps they can be added to the list.
     else
         os="$(uname -s) $(uname -r) $(cat /etc/*_ver* /etc/*-rel*)"
@@ -59,6 +61,9 @@ route_os() {
             ;;
         centos\ linux\ release\ 7.9*)
             source ${plugins}/centos79.plugin.sh
+            ;;
+        AlmaLinux\ release\ 9.*)
+            source ${plugins}/almalinux9.plugin.sh
             ;;
         # Die on unknowns
         *)
